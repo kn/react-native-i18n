@@ -1,15 +1,12 @@
 /**
- * Copyright (C) 2016, Canonical Ltd.
+ * Copyright (c) 2017-present, Status Research and Development GmbH.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * Author: Justin McPherson <justin.mcpherson@canonical.com>
- *
  */
-
 #include <memory>
 
 #include "bridge.h"
@@ -72,7 +69,8 @@ QList<ModuleMethod*> RNI18n::methodsToExport() {
 }
 
 QVariantMap RNI18n::constantsToExport() {
-    return QVariantMap{{"languages", d_ptr->languages()}};
+    QString locale = d_ptr->languages().count() > 0 ? d_ptr->languages().first().toString() : "en";
+    return QVariantMap{{"locale", locale}};
 }
 
 void RNI18n::setBridge(Bridge* bridge) {
